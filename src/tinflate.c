@@ -108,8 +108,8 @@ static void tinf_build_fixed_trees(struct tinf_tree *lt, struct tinf_tree *dt)
 }
 
 /* Given an array of code lengths, build a tree */
-static int tinf_build_tree(struct tinf_tree *t, const unsigned char *lengths,
-		unsigned num)
+static tinf_error_code tinf_build_tree(struct tinf_tree *t,
+		const unsigned char *lengths, unsigned num)
 {
 	unsigned short offs[16];
 	unsigned long i, num_codes, available;
@@ -263,8 +263,8 @@ static int tinf_decode_symbol(struct tinf_data *d, const struct tinf_tree *t)
 }
 
 /* Given a data stream, decode dynamic trees from it */
-static int tinf_decode_trees(struct tinf_data *d, struct tinf_tree *lt,
-		struct tinf_tree *dt)
+static tinf_error_code tinf_decode_trees(struct tinf_data *d,
+		struct tinf_tree *lt, struct tinf_tree *dt)
 {
 	unsigned char lengths[288 + 32];
 
@@ -390,8 +390,8 @@ static int tinf_decode_trees(struct tinf_data *d, struct tinf_tree *lt,
 /* -- Block inflate functions -- */
 
 /* Given a stream and two trees, inflate a block of data */
-static int tinf_inflate_block_data(struct tinf_data *d, struct tinf_tree *lt,
-                                   struct tinf_tree *dt)
+static tinf_error_code tinf_inflate_block_data(struct tinf_data *d,
+		struct tinf_tree *lt, struct tinf_tree *dt)
 {
 	/* Extra bits and base tables for length codes */
 	static const unsigned char length_bits[30] = {
@@ -538,7 +538,7 @@ static tinf_error_code tinf_inflate_fixed_block(struct tinf_data *d)
 static tinf_error_code tinf_inflate_dynamic_block(struct tinf_data *d)
 {
 	/* Decode trees from stream */
-	int res = tinf_decode_trees(d, &d->ltree, &d->dtree);
+	tinf_error_code res = tinf_decode_trees(d, &d->ltree, &d->dtree);
 
 	if (res != TINF_OK) {
 		return res;
