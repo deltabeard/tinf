@@ -50,8 +50,8 @@ extern "C" {
  */
 typedef enum {
 	TINF_OK         = 0,  /**< Success */
-	TINF_DATA_ERROR = -3, /**< Input error */
-	TINF_BUF_ERROR  = -5  /**< Not enough room for output */
+	TINF_DATA_ERROR = 1, /**< Input error */
+	TINF_BUF_ERROR  = 2  /**< Not enough room for output */
 } tinf_error_code;
 
 /**
