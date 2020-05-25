@@ -79,60 +79,6 @@ void TINFCC tinf_init(void);
 int TINFCC tinf_uncompress(void *dest, unsigned int *destLen,
                            const void *source, unsigned int sourceLen);
 
-/**
- * Decompress `sourceLen` bytes of gzip data from `source` to `dest`.
- *
- * The variable `destLen` points to must contain the size of `dest` on entry,
- * and will be set to the size of the decompressed data on success.
- *
- * Reads at most `sourceLen` bytes from `source`.
- * Writes at most `*destLen` bytes to `dest`.
- *
- * @param dest pointer to where to place decompressed data
- * @param destLen pointer to variable containing size of `dest`
- * @param source pointer to compressed data
- * @param sourceLen size of compressed data
- * @return `TINF_OK` on success, error code on error
- */
-int TINFCC tinf_gzip_uncompress(void *dest, unsigned int *destLen,
-                                const void *source, unsigned int sourceLen);
-
-/**
- * Decompress `sourceLen` bytes of zlib data from `source` to `dest`.
- *
- * The variable `destLen` points to must contain the size of `dest` on entry,
- * and will be set to the size of the decompressed data on success.
- *
- * Reads at most `sourceLen` bytes from `source`.
- * Writes at most `*destLen` bytes to `dest`.
- *
- * @param dest pointer to where to place decompressed data
- * @param destLen pointer to variable containing size of `dest`
- * @param source pointer to compressed data
- * @param sourceLen size of compressed data
- * @return `TINF_OK` on success, error code on error
- */
-int TINFCC tinf_zlib_uncompress(void *dest, unsigned int *destLen,
-                                const void *source, unsigned int sourceLen);
-
-/**
- * Compute Adler-32 checksum of `length` bytes starting at `data`.
- *
- * @param data pointer to data
- * @param length size of data
- * @return Adler-32 checksum
- */
-unsigned int TINFCC tinf_adler32(const void *data, unsigned int length);
-
-/**
- * Compute CRC32 checksum of `length` bytes starting at `data`.
- *
- * @param data pointer to data
- * @param length size of data
- * @return CRC32 checksum
- */
-unsigned int TINFCC tinf_crc32(const void *data, unsigned int length);
-
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
