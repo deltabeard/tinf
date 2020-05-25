@@ -1,8 +1,9 @@
 /**
  * This file is public domain.
  */
-#include <stdlib.h>
+
 #include <stdio.h>
+#include <stdlib.h>
 #include <tinf.h>
 
 #define DIE() die(__LINE__)
@@ -16,10 +17,9 @@ void die(size_t line)
 int main(int argc, char *argv[])
 {
 	FILE *f;
-	size_t f_sz;
+	size_t f_sz, dest_sz;
 	char *src, *dest;
 	int ret;
-	unsigned int dest_sz;
 
 	if(argc != 2)
 	{
@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
 	free(src);
 	free(dest);
 
-	fprintf(stderr, "\ndest_sz: %u\nratio: %.1f%%\n",
+	fprintf(stderr, "\ndest_sz: %lu\nratio: %.1f%%\n",
 			dest_sz, ((float)f_sz/dest_sz) * 100.0f);
 
 	return EXIT_SUCCESS;

@@ -23,43 +23,22 @@
  *      distribution.
  */
 
-#ifndef TINF_H_INCLUDED
-#define TINF_H_INCLUDED
+#pragma once
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#define TINF_VER_MAJOR 1        /**< Major version number */
-#define TINF_VER_MINOR 2        /**< Minor version number */
-#define TINF_VER_PATCH 1        /**< Patch version number */
-#define TINF_VER_STRING "1.2.1" /**< Version number as a string */
-
-#ifndef TINFCC
-#  ifdef __WATCOMC__
-#    define TINFCC __cdecl
-#  else
-#    define TINFCC
-#  endif
-#endif
+#include <stddef.h>
 
 /**
  * Status codes returned.
- *
- * @see tinf_uncompress, tinf_gzip_uncompress, tinf_zlib_uncompress
  */
 typedef enum {
 	TINF_OK         = 0,  /**< Success */
 	TINF_DATA_ERROR = 1, /**< Input error */
 	TINF_BUF_ERROR  = 2  /**< Not enough room for output */
 } tinf_error_code;
-
-/**
- * Initialize global data used by tinf.
- *
- * @deprecated No longer required, may be removed in a future version.
- */
-void TINFCC tinf_init(void);
 
 /**
  * Decompress `sourceLen` bytes of deflate data from `source` to `dest`.
@@ -76,11 +55,9 @@ void TINFCC tinf_init(void);
  * @param sourceLen size of compressed data
  * @return `TINF_OK` on success, error code on error
  */
-int TINFCC tinf_uncompress(void *dest, unsigned int *destLen,
-                           const void *source, unsigned int sourceLen);
+tinf_error_code tinf_uncompress(void *dest, size_t *destLen,
+		const void *source, size_t sourceLen);
 
 #ifdef __cplusplus
 } /* extern "C" */
 #endif
-
-#endif /* TINF_H_INCLUDED */
